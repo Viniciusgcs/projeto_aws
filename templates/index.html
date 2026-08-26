@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Desenvolvimento de Sistemas Distribuídos
+    </title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f4f6f8;
+
+            color: #222;
+
+            line-height: 1.6;
+        }
+
+
+        header {
+
+            background: #1f2937;
+
+            color: white;
+
+            padding: 60px 20px;
+
+            text-align: center;
+        }
+
+
+        header h1 {
+
+            margin: 0 0 15px;
+
+            font-size: 2.4rem;
+        }
+
+
+        header p {
+
+            margin: 5px;
+
+            font-size: 1.05rem;
+
+            opacity: 0.9;
+        }
+
+
+        main {
+
+            max-width: 1000px;
+
+            margin: 40px auto;
+
+            padding: 0 20px;
+        }
+
+
+        .card {
+
+            background: white;
+
+            border-radius: 12px;
+
+            padding: 30px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 4px 12px
+                rgba(0, 0, 0, 0.08);
+        }
+
+
+        .card h2 {
+
+            margin-top: 0;
+
+            color: #1f2937;
+        }
+
+
+        .card h3 {
+
+            color: #374151;
+        }
+
+
+        .architecture {
+
+            font-family: monospace;
+
+            background: #111827;
+
+            color: #e5e7eb;
+
+            padding: 25px;
+
+            border-radius: 8px;
+
+            overflow-x: auto;
+
+            white-space: pre;
+
+            line-height: 1.5;
+        }
+
+
+        .resources {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(220px, 1fr)
+                );
+
+            gap: 15px;
+
+            margin-top: 20px;
+        }
+
+
+        .resource {
+
+            border: 1px solid #ddd;
+
+            border-radius: 8px;
+
+            padding: 20px;
+
+            background: #fafafa;
+        }
+
+
+        .resource strong {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #1f2937;
+        }
+
+
+        button {
+
+            background: #2563eb;
+
+            color: white;
+
+            border: none;
+
+            padding: 12px 20px;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            font-size: 1rem;
+
+            margin-right: 10px;
+
+            margin-top: 10px;
+        }
+
+
+        button:hover {
+
+            opacity: 0.9;
+        }
+
+
+        #result {
+
+            margin-top: 20px;
+
+            padding: 20px;
+
+            background: #f3f4f6;
+
+            border-radius: 8px;
+
+            font-family: monospace;
+
+            white-space: pre-wrap;
+
+            word-break: break-word;
+
+            min-height: 60px;
+        }
+
+
+        .status {
+
+            display: inline-block;
+
+            padding: 6px 12px;
+
+            border-radius: 20px;
+
+            background: #dcfce7;
+
+            color: #166534;
+
+            font-weight: bold;
+
+            margin-bottom: 15px;
+        }
+
+
+        footer {
+
+            text-align: center;
+
+            padding: 40px 20px;
+
+            color: #666;
+
+            font-size: 0.9rem;
+
+            border-top: 1px solid #ddd;
+
+            background: white;
+        }
+
+
+        code {
+
+            background: #f3f4f6;
+
+            padding: 3px 6px;
+
+            border-radius: 4px;
+
+            font-family: monospace;
+        }
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     CABEÇALHO
+     ========================================================= -->
+
+<header>
+
+    <h1>
+        Desenvolvimento de Sistemas Distribuídos
+    </h1>
+
+    <p>
+        Ciência da Computação — 6º semestre
+    </p>
+
+    <p>
+        Universidade Paulista — UNIP
+    </p>
+
+    <p>
+        Prof. Dr. André Lourenço
+    </p>
+
+</header>
+
+
+<main>
+
+
+    <!-- =====================================================
+         APRESENTAÇÃO
+         ===================================================== -->
+
+    <section class="card">
+
+        <span class="status">
+            ● Serviço online
+        </span>
+
+        <h2>
+            Bem-vindo!
+        </h2>
+
+        <p>
+
+            Esta página faz parte do projeto prático da
+            disciplina de
+            <strong>
+                Desenvolvimento de Sistemas Distribuídos
+            </strong>.
+
+        </p>
+
+        <p>
+
+            Nesta primeira etapa, a aplicação foi implantada
+            em uma máquina virtual
+            <strong>AWS EC2</strong>
+            e está sendo executada utilizando
+            <strong>Python</strong> e
+            <strong>Flask</strong>.
+
+        </p>
+
+        <p>
+
+            Ao longo da disciplina, esta aplicação será
+            progressivamente transformada em um sistema
+            distribuído completo.
+
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         ARQUITETURA ATUAL
+         ===================================================== -->
+
+    <section class="card">
+
+        <h2>
+            Arquitetura atual
+        </h2>
+
+        <p>
+
+            A aplicação desta primeira aula possui uma
+            arquitetura simples:
+
+        </p>
+
+
+        <div class="architecture">
+
+Computador do usuário
+        |
+        | HTTP
+        v
+     Internet
+        |
+        v
+ AWS Security Group
+        |
+        v
+    Amazon EC2
+        |
+        v
+      Linux
+        |
+        v
+     Python
+        |
+        v
+      Flask
+        |
+        v
+     :5000
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         RECURSOS UTILIZADOS
+         ===================================================== -->
+
+    <section class="card">
+
+        <h2>
+            Recursos utilizados
+        </h2>
+
+
+        <div class="resources">
+
+
+            <div class="resource">
+
+                <strong>
+                    AWS EC2
+                </strong>
+
+                Máquina virtual utilizada
+                para executar a aplicação.
+
+            </div>
+
+
+            <div class="resource">
+
+                <strong>
+                    Linux
+                </strong>
+
+                Sistema operacional da
+                máquina virtual.
+
+            </div>
+
+
+            <div class="resource">
+
+                <strong>
+                    Python
+                </strong>
+
+                Linguagem utilizada para
+                desenvolver a aplicação.
+
+            </div>
+
+
+            <div class="resource">
+
+                <strong>
+                    Flask
+                </strong>
+
+                Framework utilizado para
+                implementar o servidor web.
+
+            </div>
+
+
+            <div class="resource">
+
+                <strong>
+                    HTTP
+                </strong>
+
+                Protocolo utilizado na
+                comunicação entre cliente e servidor.
+
+            </div>
+
+
+            <div class="resource">
+
+                <strong>
+                    Security Group
+                </strong>
+
+                Controle de acesso ao tráfego
+                da instância EC2.
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CONTEÚDOS DA DISCIPLINA
+         ===================================================== -->
+
+    <section class="card">
+
+        <h2>
+            O que será desenvolvido?
+        </h2>
+
+        <p>
+
+            A aplicação será evoluída progressivamente
+            durante a disciplina.
+
+        </p>
+
+
+        <ul>
+
+            <li>
+                Computação em nuvem
+            </li>
+
+            <li>
+                Máquinas virtuais e AWS EC2
+            </li>
+
+            <li>
+                APIs REST
+            </li>
+
+            <li>
+                Bancos de dados
+            </li>
+
+            <li>
+                Docker e containers
+            </li>
+
+            <li>
+                Redis e sistemas de cache
+            </li>
+
+            <li>
+                Microsserviços
+            </li>
+
+            <li>
+                Autenticação JWT e OAuth
+            </li>
+
+            <li>
+                Comunicação e mensageria
+            </li>
+
+            <li>
+                Load Balancing
+            </li>
+
+            <li>
+                Escalabilidade
+            </li>
+
+            <li>
+                Observabilidade
+            </li>
+
+            <li>
+                CI/CD
+            </li>
+
+        </ul>
+
+    </section>
+
+
+    <!-- =====================================================
+         TESTE DA API
+         ===================================================== -->
+
+    <section class="card">
+
+        <h2>
+            Teste o serviço
+        </h2>
+
+        <p>
+
+            A página que você está visualizando foi
+            entregue pelo servidor Flask.
+
+        </p>
+
+        <p>
+
+            O botão abaixo executará uma nova requisição
+            HTTP para a API da aplicação:
+
+        </p>
+
+
+        <p>
+
+            <code>
+                GET /api/health
+            </code>
+
+        </p>
+
+
+        <button onclick="testHealth()">
+
+            Testar API
+
+        </button>
+
+
+        <button onclick="testAbout()">
+
+            Informações da disciplina
+
+        </button>
+
+
+        <div id="result">
+
+            Aguardando teste...
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         DESAFIO
+         ===================================================== -->
+
+    <section class="card">
+
+        <h2>
+            Desafio da Aula 1
+        </h2>
+
+        <p>
+
+            Modifique esta página diretamente na sua
+            instância EC2.
+
+        </p>
+
+        <h3>
+            Experimente alterar:
+        </h3>
+
+        <ul>
+
+            <li>
+                título da página;
+            </li>
+
+            <li>
+                informações do professor;
+            </li>
+
+            <li>
+                descrição da disciplina;
+            </li>
+
+            <li>
+                arquitetura;
+            </li>
+
+            <li>
+                lista de tecnologias;
+            </li>
+
+            <li>
+                estilo visual da página.
+            </li>
+
+        </ul>
+
+        <p>
+
+            Depois de modificar o arquivo,
+            reinicie o Flask e atualize a página
+            no navegador.
+
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         PERGUNTA
+         ===================================================== -->
+
+    <section class="card">
+
+        <h2>
+            Uma pergunta para a próxima aula
+        </h2>
+
+        <p>
+
+            Atualmente temos apenas uma instância EC2
+            executando nossa aplicação.
+
+        </p>
+
+        <p>
+
+            <strong>
+                O que aconteceria se 1.000 usuários
+                acessassem esta aplicação simultaneamente?
+            </strong>
+
+        </p>
+
+        <p>
+
+            Esse problema será o ponto de partida para
+            a evolução da arquitetura ao longo da disciplina.
+
+        </p>
+
+    </section>
+
+
+</main>
+
+
+<!-- =========================================================
+     RODAPÉ
+     ========================================================= -->
+
+<footer>
+
+    <strong>
+        Desenvolvimento de Sistemas Distribuídos
+    </strong>
+
+    <br>
+
+    Ciência da Computação — UNIP
+
+    <br>
+
+    Projeto acadêmico — AWS + Python + Flask
+
+</footer>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
+
+<script>
+
+
+    async function testHealth() {
+
+        const result =
+            document.getElementById("result");
+
+
+        result.textContent =
+            "Consultando /api/health...";
+
+
+        try {
+
+            const response =
+                await fetch("/api/health");
+
+
+            const data =
+                await response.json();
+
+
+            result.textContent =
+                JSON.stringify(
+                    data,
+                    null,
+                    4
+                );
+
+
+        }
+
+        catch (error) {
+
+            result.textContent =
+                "Erro ao acessar a API:\n\n" +
+                error;
+
+        }
+
+    }
+
+
+    async function testAbout() {
+
+        const result =
+            document.getElementById("result");
+
+
+        result.textContent =
+            "Consultando /about...";
+
+
+        try {
+
+            const response =
+                await fetch("/about");
+
+
+            const data =
+                await response.json();
+
+
+            result.textContent =
+                JSON.stringify(
+                    data,
+                    null,
+                    4
+                );
+
+
+        }
+
+        catch (error) {
+
+            result.textContent =
+                "Erro ao acessar a API:\n\n" +
+                error;
+
+        }
+
+    }
+
+
+</script>
+
+
+</body>
+
+</html>
