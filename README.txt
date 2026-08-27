@@ -28,3 +28,4 @@ Além disso:
 /about
 
 Esse desenho é interessante para a disciplina porque a página não é apenas um "Hello World": ela já contém uma interface web, uma API REST mínima e uma operação de health check. Assim, quando chegarmos a Docker, Redis, banco de dados, autenticação, microsserviços e Load Balancer, podemos continuar evoluindo a mesma aplicação, em vez de abandonar o exemplo da primeira aula.
+Nova linha adicionada
